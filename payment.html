@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="x-icon" href="img/logo.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+    <title>DNA Database - Payment & Free Trial</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Spartan', sans-serif;
+        }
+
+        body {
+            width: 100%;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        #header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            background: #f9f9f9;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .logo {
+            max-width: 150px;
+        }
+
+        #navbar {
+            display: flex;
+            align-items: center;
+        }
+
+        #navbar a {
+            text-decoration: none;
+            color: #1a1a1a;
+            margin: 0 15px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        #navbar a:hover {
+            color: #088178;
+        }
+
+        /* Container Styles */
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            margin: 10px;
+            background-color: #088178;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #066f64;
+        }
+
+        /* Payment Form Styles */
+        #payment-form {
+            display: none;
+        }
+
+        #payment-form input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        /* Free Trial Styles */
+        .free-trial-banner {
+            background-color: #088178;
+            color: white;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+
+        /* Plan Selection Styles */
+        .plan-options {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .plan-card {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            width: 45%;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .plan-card:hover, .plan-card.selected {
+            border-color: #088178;
+            background-color: #f0f8ff;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <img src="img/logo.png" alt="DNA Database Logo" class="logo">
+        <nav id="navbar">
+            <a href="index.html">Home</a>
+            <a href="contact.html">Contact</a>
+            <a href="about.html">About</a>
+        </nav>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Welcome Section -->
+        <div id="welcome-section">
+            <h1>DNA Data Base</h1>
+            <p>Discover Your Genetic Insights</p>
+            <button id="comparison-btn" class="btn">Comparison DNA</button>
+        </div>
+
+        <!-- Payment Section -->
+        <div id="payment-section" style="display:none;">
+            <div class="free-trial-banner">
+                🎉 Start Your 2-Week Free Trial! No Credit Card Required 🎉
+            </div>
+
+            <div class="plan-options">
+                <div class="plan-card monthly" data-plan="monthly">
+                    <h3>Monthly</h3>
+                    <p>$9.99/month</p>
+                </div>
+                <div class="plan-card yearly" data-plan="yearly">
+                    <h3>Yearly</h3>
+                    <p>$99.99/year</p>
+                    <p><strong>Save 16%</strong></p>
+                </div>
+            </div>
+
+            <div id="payment-form">
+                <h2>Payment Details</h2>
+                <form>
+                    <input type="text" placeholder="Full Name" required>
+                    <input type="email" placeholder="Email Address" required>
+                    <input type="text" placeholder="Card Number" required>
+                    <div style="display: flex;">
+                        <input type="text" placeholder="MM/YY" style="width: 50%; margin-right: 10px;" required>
+                        <input type="text" placeholder="CVV" style="width: 50%;" required>
+                    </div>
+                    <button type="submit" class="btn">Start Subscription</button>
+                </form>
+            </div>
+
+            <div id="free-trial-btn">
+                <button onclick="navigateToPage()" class="btn">Start 2-Week Free Trial</button>
+            </div>
+            
+            <script>
+                function navigateToPage() {
+                    window.location.href = "py.html"; // Navigate to the desired page
+                }
+            </script>
+            
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const comparisonBtn = document.getElementById('comparison-btn');
+            const welcomeSection = document.getElementById('welcome-section');
+            const paymentSection = document.getElementById('payment-section');
+            const planCards = document.querySelectorAll('.plan-card');
+            const paymentForm = document.getElementById('payment-form');
+            const freeTrialBtn = document.getElementById('free-trial-btn');
+
+            // Check if free trial is active
+            function checkTrialStatus() {
+                const trialInfo = JSON.parse(localStorage.getItem('dnaTrialInfo'));
+                
+                if (trialInfo) {
+                    const today = new Date();
+                    const trialEnd = new Date(trialInfo.endDate);
+
+                    if (today <= trialEnd) {
+                        // Redirect to DNA analyzer
+                        window.location.href = 'py.html';
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            // Comparison button click handler
+            comparisonBtn.addEventListener('click', () => {
+                // If trial is active, go to DNA analyzer
+                if (checkTrialStatus()) return;
+
+                // Otherwise, show payment section
+                welcomeSection.style.display = 'none';
+                paymentSection.style.display = 'block';
+            });
+
+            // Plan selection
+            planCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    planCards.forEach(c => c.classList.remove('selected'));
+                    card.classList.add('selected');
+                    freeTrialBtn.style.display = 'none';
+                    paymentForm.style.display = 'block';
+                });
+            });
+
+            // Payment form submission
+            const form = paymentSection.querySelector('form');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                startFreeTrial();
+            });
+
+            // Free trial function
+            function startFreeTrial() {
+                const trialStartDate = new Date();
+                const trialEndDate = new Date(trialStartDate);
+                trialEndDate.setDate(trialStartDate.getDate() + 14);
+
+                // Store trial information in localStorage
+                localStorage.setItem('dnaTrialInfo', JSON.stringify({
+                    startDate: trialStartDate,
+                    endDate: trialEndDate
+                }));
+
+                // Redirect to DNA analyzer
+                window.location.href = 'py.html';
+            }
+        });
+    </script>
+</body>
+</html>

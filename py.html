@@ -1,0 +1,471 @@
+
+    
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>DataGene</title>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="x-icon" href="img/logo.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+
+    <style>
+        #results { margin-top: 20px; }
+        #similarityChart { max-width: 600px; margin: 20px auto; }
+
+        #similarityChart {
+    max-width: 600px;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    background: #f9f9f9;
+}
+
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    color: #0f52ba;
+    margin: 20px 0;
+    font-size: 2.5rem;
+}
+
+/* Header Section */
+#header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f9f9f9;
+    padding: 10px 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#header .logo {
+    height: 50px;
+}
+
+#navbar {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    margin: 0;
+}
+
+#navbar li {
+    display: inline;
+}
+
+#navbar a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 5px 10px;
+    transition: background-color 0.3s ease;
+}
+
+#navbar a:hover {
+    background-color: white;
+    color: #0f52ba;
+    border-radius: 5px;
+}
+
+/* Main Container */
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin: 15px 0 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #333;
+}
+
+button {
+    background-color: #0f52ba;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    margin-top: 15px;
+}
+
+button:hover {
+    background-color: #0d3d91;
+}
+
+/* Results Section */
+#results {
+    margin-top: 20px;
+    line-height: 1.6;
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Chart Styles */
+#similarityChart {
+    max-width: 100%;
+    margin: 20px auto;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+}
+
+/* Footer Section */
+footer {
+    background-color: #ffffff;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+footer .col {
+    max-width: 300px;
+    margin: 0 auto 20px;
+    text-align: left;
+}
+
+footer h4 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #000000;
+}
+
+footer p, footer a {
+    color: #000000;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+footer .follow .icon i {
+    color: white;
+    margin: 5px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+footer .row img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #navbar {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .container {
+        padding: 15px;
+    }
+
+    footer .col {
+        text-align: center;
+    }
+}
+
+
+    /* File Upload Container */
+.file-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    padding: 10px;
+    border: 2px dashed #0f52ba;
+    border-radius: 8px;
+    background-color: #f4f4f9;
+    transition: border-color 0.3s ease;
+}
+
+/* Input (Hidden) */
+.file-input {
+    display: none;
+}
+
+/* Label as the visible button */
+.file-label {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #0f52ba;
+    text-align: center;
+    background-color: #ffffff;
+    padding: 10px 20px;
+    border: 2px solid #0f52ba;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.file-label:hover {
+    background-color: #0f52ba;
+    color: #ffffff;
+}
+
+/* File Name Display */
+.file-name {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* Hover effect for the container */
+.file-upload:hover {
+    border-color: #0d3d91;
+}
+
+
+
+
+    </style>
+</head>
+<body>
+
+    <section id="header">
+        <a href="#"><img src="img/logo.png" class="logo" alt=""></a>
+
+            <div>
+                <ul id="navbar">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </div>        
+    </section>
+
+    <!-- DNA Analyzer Section -->
+    <section id="dna-analyzer">
+        <div class="dna-upload-container">
+            
+            <div class="file-upload">
+                <input type="file" id="dna-file-1" accept=".txt" class="file-input">
+                <label for="dna-file-1" class="file-label">
+                    Upload DNA Sequence 1
+                </label>
+                <span id="file-name-1" class="file-name"></span>
+            </div>
+
+            <div class="file-upload">
+                <input type="file" id="dna-file-2" accept=".txt" class="file-input">
+                <label for="dna-file-2" class="file-label">
+                    Upload DNA Sequence 2
+                </label>
+                <span id="file-name-2" class="file-name"></span>
+            </div>
+        </div>
+    </section>
+
+
+    <h1>DNA Sequence Similarity Analyzer</h1>
+    <div>
+        <label for="dna1">DNA Sequence 1:</label>
+        <input type="text" id="dna1" pattern="[ATCG]+" required>
+        <br>
+        <label for="dna2">DNA Sequence 2:</label>
+        <input type="text" id="dna2" pattern="[ATCG]+" required>
+        <br>
+        <button  style="background-color: green; color: white;" onclick="analyzeDNA()">Analyze Sequences</button>
+    </div>
+    <div id="results"></div>
+    <canvas id="similarityChart"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        // DNA Analysis Functions
+        function generateRandomDNA(length) {
+            const bases = ['A', 'T', 'C', 'G'];
+            return Array.from({length}, () => bases[Math.floor(Math.random() * bases.length)]).join('');
+        }
+
+        function padSequences(seq1, seq2) {
+            const maxLength = Math.max(seq1.length, seq2.length);
+            seq1 = seq1.padEnd(maxLength, '-');
+            seq2 = seq2.padEnd(maxLength, '-');
+            return [seq1, seq2];
+        }
+
+        function calculateSimilarity(seq1, seq2) {
+            const [paddedSeq1, paddedSeq2] = padSequences(seq1, seq2);
+            const matches = paddedSeq1.split('').filter((base, index) => base === paddedSeq2[index]).length;
+            return (matches / paddedSeq1.length) * 100;
+        }
+
+        function baseComposition(seq) {
+            const baseCount = {'A': 0, 'T': 0, 'C': 0, 'G': 0};
+            for (let base of seq) {
+                baseCount[base]++;
+            }
+            const total = seq.length;
+            return Object.fromEntries(
+                Object.entries(baseCount).map(([base, count]) => [base, (count / total) * 100])
+            );
+        }
+
+        function findDifferences(seq1, seq2) {
+            const [paddedSeq1, paddedSeq2] = padSequences(seq1, seq2);
+            return paddedSeq1.split('').map((base, index) => 
+                base !== paddedSeq2[index] ? [index, base, paddedSeq2[index]] : null
+            ).filter(diff => diff !== null);
+        }
+
+        function checkRelationship(similarity) {
+            if (similarity >= 99) return "Likely same person";
+            if (similarity >= 50) return "Likely related";
+            return "Not related";
+        }
+
+        function createSimilarityChart(similarity) {
+            const ctx = document.getElementById('similarityChart').getContext('2d');
+            
+            // Destroy existing chart if it exists
+            if (window.similarityChartInstance) {
+                window.similarityChartInstance.destroy();
+            }
+
+            window.similarityChartInstance = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Matching Bases', 'Different Bases'],
+                    datasets: [{
+                        data: [similarity, 100 - similarity],
+                        backgroundColor: ['#36A2EB', '#FF6384']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'DNA Sequence Similarity'
+                        }
+                    }
+                }
+            });
+        }
+
+        function analyzeDNA() {
+            let dna1 = document.getElementById('dna1').value.toUpperCase();
+            let dna2 = document.getElementById('dna2').value.toUpperCase();
+
+            // Validate input
+            if (!/^[ATCG]+$/.test(dna1) || !/^[ATCG]+$/.test(dna2)) {
+                alert('Invalid DNA sequence. Use only A, T, C, and G.');
+                return;
+            }
+
+            const similarity = calculateSimilarity(dna1, dna2);
+            const composition1 = baseComposition(dna1);
+            const composition2 = baseComposition(dna2);
+            const differences = findDifferences(dna1, dna2);
+            const relationship = checkRelationship(similarity);
+
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = `
+                <h2>Analysis Results</h2>
+                <p>DNA Sequence 1: ${dna1}</p>
+                <p>DNA Sequence 2: ${dna2}</p>
+                <h3>Similarity</h3>
+                <p>Similarity: ${similarity.toFixed(2)}%</p>
+                <p>Relationship: ${relationship}</p>
+                
+                <h3>Base Composition</h3>
+                <p>Sequence 1 - A: ${composition1.A.toFixed(2)}%, T: ${composition1.T.toFixed(2)}%, C: ${composition1.C.toFixed(2)}%, G: ${composition1.G.toFixed(2)}%</p>
+                <p>Sequence 2 - A: ${composition2.A.toFixed(2)}%, T: ${composition2.T.toFixed(2)}%, C: ${composition2.C.toFixed(2)}%, G: ${composition2.G.toFixed(2)}%</p>
+                
+                <h3>Differences</h3>
+                <p>${differences.map(diff => `Position ${diff[0]}: ${diff[1]} -> ${diff[2]}`).join('<br>')}</p>
+            `;
+
+            // Create similarity chart
+            createSimilarityChart(similarity);
+        }
+
+        // Random DNA generation on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('dna1').value = generateRandomDNA(15);
+            document.getElementById('dna2').value = generateRandomDNA(15);
+        });
+
+    
+
+    </script>
+
+
+
+<footer class="section-p1">
+    <div class="col">
+        <img  class="logo"  src="img/logo.png" alt="">
+        <h4>Contact</h4>
+        <p><strong>Phone</strong> +995 599 326 577</p>
+        <p><strong>Hours</strong> 10:00 - 18:00, Mon - Sat</p>
+        <p><strong>E-mail</strong> infomystartcode@gmail.com</p>
+        <div class="follow">
+            <h4>Follow Us</h4>
+            <div class="icon">
+                <i class="fab fa-facebook-f"></i>
+                <a href="https://www.instagram.com/mystartcode.ge/followers/mutualOnly">
+                <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <h4>About</h4>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="#">Privacy Policy</a>
+    </div>
+
+
+    <div class="col install">
+        <h4>Install App</h4>
+        <p>From App Store or Google Play</p>
+        <div class="row">
+            <img src="img/pay/app.jpg" alt="">
+            <img src="img/pay/play.jpg" alt="">
+        </div>
+        <p>Secured Payment Gateways</p>
+        <img src="img/pay/pay.png" alt="">
+    </div>
+
+</footer>
+
+
+</body>
+</html>
