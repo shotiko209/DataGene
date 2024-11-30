@@ -425,6 +425,47 @@ footer .row img {
 
     </script>
 
+    <script>
+        function createPointDiagram(differences, seq1, seq2) {
+    const canvas = document.createElement('canvas');
+    canvas.id = 'pointDiagram';
+    document.getElementById('results').appendChild(canvas);
+
+    const ctx = canvas.getContext('2d');
+    const mismatchPoints = differences.map(diff => ({
+        x: diff[0] + 1,
+        y: seq1[diff[0]],
+    }));
+
+    new Chart(ctx, {
+        type: 'scatter',
+        data: {
+            datasets: [{
+                label: 'Mismatch Points',
+                data: mismatchPoints.map(point => ({ x: point.x, y: point.y })),
+                backgroundColor: 'red',
+            }]
+        },
+        options: {
+            scales: {
+                x: {
+                    title: { display: true, text: 'Position' },
+                },
+                y: {
+                    title: { display: true, text: 'Base (Mismatch)' },
+                    ticks: {
+                        callback: function (value) {
+                            return seq2[value];
+                        }
+                    }
+                }
+            },
+        },
+    });
+}
+
+    </script>
+
 
 
 <footer class="section-p1">
